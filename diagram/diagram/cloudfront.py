@@ -2,7 +2,7 @@ from turtle import rt
 from diagrams import Cluster, Diagram, Edge
 from diagrams.aws.database import Dynamodb
 from diagrams.aws.network import Route53, CloudFront
-from diagrams.aws.security import IAM
+from diagrams.aws.security import IAM, CertificateManager
 from diagrams.aws.storage import S3
 from diagrams.aws.engagement import SES
 from diagrams.aws.mobile import APIGateway
@@ -20,6 +20,7 @@ with Diagram(
         cloudfront = CloudFront("Cloudfront")
         iam = IAM("IAM Role")
         s3 = S3("s3")
+        cert = CertificateManager("ACME OVH")
 
     with Cluster("SES Email Service", direction="TB") as email_service:
         # tablet = Tablet("HTML Contact Form")
@@ -30,6 +31,7 @@ with Diagram(
 
 
     route53 >> cloudfront >> iam >> s3
+    cloudfront << cert
     s3 >> api
     api >> iam_ses >> send_email >> ses
 
