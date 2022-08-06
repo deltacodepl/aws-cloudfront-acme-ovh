@@ -77,6 +77,7 @@ resource "aws_s3_object" "promo-website-pl-website" {
   bucket = aws_s3_bucket.s3_front_website_bucket.id
   key = each.key
   source = "${path.module}/app/src/${each.key}"
+  # set content type for each file according to our mime_types local
   content_type = lookup(tomap(local.mime_types), element(split(".", each.key), length(split(".", each.key)) - 1))
   etag = filemd5("${path.module}/app/src/${each.key}")
 }

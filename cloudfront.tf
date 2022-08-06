@@ -6,9 +6,9 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
+    # Origin domain
     # domain_name = aws_s3_bucket.s3_front_website_bucket.bucket_regional_domain_name
-    # terraform return same result as for bucket_domain_name/ Error
-    # FIX ME
+    # FIXME: terraform return same result as for bucket_domain_name/ misbehaviour
     domain_name = "${var.cert_domain_name}.s3.us-east-1.amazonaws.com"
     origin_id   = var.cert_domain_name
     

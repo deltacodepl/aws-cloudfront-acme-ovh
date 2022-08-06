@@ -35,5 +35,3 @@ with Diagram(
     s3 >> api
     api >> iam_ses >> send_email >> ses
 
-
-    
